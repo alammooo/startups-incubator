@@ -1,0 +1,73 @@
+<%- include("header.ejs") %>
+
+    <form action="/startUp" method="get">
+        <div class="flex mb-10 mx-auto max-w-screen-2xl gap-2">
+            <button type="submit" name="sort" value="roleOfFounder" class="inline-block border-2 text-blue-700 font-medium rounded-md px-5 py-2.5
+        text-center <%= active === "" ? "bg-amber-400" : "" %>">
+                All
+            </button>
+            <button type="submit" name="filter" value="Hustler" class="inline-block border-2 text-blue-700 hover:bg-amber-300 font-medium rounded-md px-5 py-2.5
+        text-center <%= active === "Hustler" ? "bg-amber-400" : "bg-amber-200" %>">
+                Hustler
+            </button>
+            <button type="submit" name="filter" value="Hipster" class="inline-block border-2 text-blue-700 hover:bg-amber-300 font-medium rounded-md px-5 py-2.5
+        text-center <%= active === "Hipster" ? "bg-amber-400" : "bg-amber-200" %>">
+                Hipster
+            </button>
+            <button type="submit" name="filter" value="Hacker" class="inline-block border-2 text-blue-700 hover:bg-amber-300 font-medium rounded-md px-5 py-2.5
+        text-center <%= active === "Hacker" ? "bg-amber-400" : "bg-amber-200" %>">
+                Hacker
+            </button>
+        </div>
+    </form>
+
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg max-w-screen-2xl mx-auto">
+        <table class="w-full text-lg text-left text-gray-500">
+            <thead class="text-md text-gray-700 uppercase bg-gray-100">
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        Start-Up and Founder Name
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Role of Founder
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Valuation
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Incubator Code
+                    </th>
+                    <th scope="col" class="py-3">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% startupList.forEach(data=> { %>
+
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                            <%= data.startUpName %> - <%= data.founderName %>
+                        </th>
+                        <td class="py-4 px-6">
+                            <%= data.roleOfFounder %>
+                        </td>
+                        <td class="py-4 px-6">
+                            <%= data.valuation %>
+                        </td>
+                        <td class="py-4 px-6">
+                            <%= data.Incubator.code %>
+                        </td>
+                        <td class="py-4">
+                            <a href="/incubators/<%= data.id %>"
+                                class="font-medium text-red-600 hover:underline border-2 border-red-400 p-2">Delete</a>
+                        </td>
+                    </tr>
+
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+    </body>
+
+    </html>

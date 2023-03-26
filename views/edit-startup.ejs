@@ -1,0 +1,76 @@
+<%- include ("header") %>
+
+
+
+<div class="max-w-screen-2xl mx-auto">
+        <% if (msg) { %>
+            <% const errorArray = msg.split(",") %>
+            <% errorArray.forEach(el => { %>
+                <h1 class="block mt-24 text-xl text-red-400"><%= el %></h1>
+            <% }) %>
+          <% } %>
+
+        <h1 class="text-2xl mb-2 font-semibold">Edit new Start-up</h1>
+        <h1 class="text-xl mb-10">Start-Up: <%= findStartup.startUpName %></h1>
+        <form action="/incubators/<%= incubatorId %>/startUp/<%= findStartup.id %>/edit" method="post">
+            <div class="mb-6">
+                <label for="name" class="block mb-2 font-medium text-gray-900 text-xl">Start-Up Name</label>
+                <input type="text" id="name" name="startUpName" value="<%= findStartup.startUpName %>"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            </div>
+            <div class="mb-6">
+                <label for="founder" class="block mb-2 font-medium text-gray-900 text-xl">Founder Name</label>
+                <input type="text" id="founder" name="founderName" value="<%= findStartup.founderName %>"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            </div>
+            <div class="mb-6">
+                <label for="date" class="block mb-2 font-medium text-gray-900 text-xl">Date Found</label>
+                <input type="date" id="date" name="dateFound" value="<%= findStartup.dateFound %>"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            </div>
+            <div class="mb-6">
+                <label for="education" class="block mb-2 font-medium text-gray-900 text-xl">Education of Founder</label>
+                <select id="education" name="educationOfFounder"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <% founderEducation.forEach(el=> { %>
+                        <% if(el === findStartup.educationOfFounder) {%>
+                        <option value="<%= el %>" selected><%= el %></option>
+                        <% } else { %>
+                        <option value="<%= el %>">
+                            <%= el %>
+                        </option>
+                        <% } %>
+                        <% }) %>
+                </select>
+            </div>
+
+            <fieldset>
+                <h1 class="text-xl mb-5 font-medium">The Level of The Incubator?</h1>
+
+                <% founderRole.forEach((el, i)=> { %>
+                    
+                    <div class="flex items-center mb-5">
+                        <input id="country-option-<%= i %>" checked type="radio" name="roleOfFounder" value="<%= el %>"
+                            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 ">
+                        <label for="country-option-<%= i %>" class="block ml-2 text-lg text-gray-900">
+                            <%= el %>
+                        </label>
+                    </div>
+
+                    <% }) %>
+
+            </fieldset>
+
+            <div class="mb-6">
+                <label for="valuation" class="block mb-2 font-medium text-gray-900 text-xl">Valuation</label>
+                <input type="number" id="valuation" name="valuation" value="<%= findStartup.valuation %>"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            </div>
+
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
+        </form>
+    </div>
+    </body>
+
+    </html>

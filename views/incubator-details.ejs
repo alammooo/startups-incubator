@@ -1,0 +1,95 @@
+<%- include ("header.ejs") %>
+
+    <div class="max-w-screen-2xl mx-auto">
+        <h1 class="text-3xl font-semibold mb-2">
+            <%= findIncubator.name %>
+        </h1>
+        <h1 class="text-2xl font-medium mb-10">
+            Code of Incubator : <%= findIncubator.code %>
+        </h1>
+
+        <% if (deleteMessage) { %>
+            <h1 class="text-2xl font-medium mb-10 text-red-400">
+                <%= deleteMessage %>
+            </h1>
+        <% } %>
+
+        <div class="flex gap-5 mb-14">
+            <h1 class="text-xl">
+                Click button to input startup :
+            </h1>
+            <a href="/incubators/<%= findIncubator.id %>/startup/add" class="border-2 shadow-md py-1 px-3 font-semibold hover:bg-slate-100 duration-500 ">
+                Add Startup
+            </a>
+        </div>
+
+        <% if (findIncubator.dataValues.Startups.length === 0) { %>
+            <h1 class="text-xl mb-3">There is no startup yet</h1>
+            <h1 class="text-2xl font-medium">Valuation All Start-Up : - </h1>
+        <% } else { %>
+            <div class="overflow-x-auto relative shadow-md sm:rounded-lg max-w-screen-2xl mx-auto mb-6">
+                <table class="w-full text-lg text-left text-gray-500">
+                    <thead class="text-md text-gray-700 uppercase bg-gray-100">
+                        <tr>
+                            <th scope="col" class="py-3 px-6">
+                                Start-Up Name   
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Founder Name
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Age
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Education
+                            </th>
+                            <th scope="col" class="py-3">
+                                Role of Founder
+                            </th>
+                            <th scope="col" class="py-3">
+                                Valuation
+                            </th>
+                            <th scope="col" class="py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            
+                            <% findIncubator.Startups.forEach((startup, index) => { %>
+                                <tr class="bg-white border-b">
+                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                        <%= startup.startUpName %>
+                                    </th>
+                                    <td class="py-4 px-6">
+                                        <%= startup.founderName %>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <%= startup.age %>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <%= startup.educationOfFounder %>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <%= startup.roleOfFounder %>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <%= formatCurrency(+startup.valuation) %>
+                                    </td>
+                                    <td class="py-4">
+                                        <a href="/incubators/<%= findIncubator.id %>/startUp/<%= startup.id %>/edit" class="font-medium text-blue-600 hover:underline border p-2">Edit</a>
+                                        <a href="/incubators/<%= findIncubator.id %>/startup/<%= startup.id %>/delete" class="font-medium text-red-600 hover:underline border p-2">Delete</a>
+                                    </td>
+                                </tr>
+            
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <h1 class="text-2xl font-medium">Valuation All Start-Up : <%= formatCurrency(totalValuation) %> </h1>
+            <% } %>
+    </div>
+    <script src=""></script>
+    </body>
+
+    </html>
